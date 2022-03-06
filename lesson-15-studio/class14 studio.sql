@@ -9,8 +9,7 @@ where author.deathday is null;
 
 delimiter //
 
-create function loanOut (bookId int, patronId int)
-returns varchar(50)
+create procedure loanOut (bookId int, patronId int)
 begin
 	update book
     set available = 0
@@ -23,15 +22,13 @@ begin
     set loan_id = (select loan_id from loan where patron_id = patronId)
     where patron_id = patronId;
     
-    return "book is loaned out.";
 end //
 
 delimiter ;
 
 delimiter //
 
-create function loanIn (bookId int)
-returns varchar(50)
+create procedure loanIn (bookId int)
 begin
 	update book
     set available = 1
@@ -45,7 +42,6 @@ begin
     set date_in = curdate()
     where book_id = bookId;
     
-    return "book is returned.";
 end //
 
 delimiter ;
